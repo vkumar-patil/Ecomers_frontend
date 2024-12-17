@@ -1,0 +1,32 @@
+.CretMain{
+    /* position: relative; */
+    margin: 0%;
+    padding: 0%;
+    
+    }
+    
+.cartFinel{
+    /* position: absolute; */
+
+/* top: 100px; */
+/* left: 800px; */
+    height: 200px;
+    width: 400px;
+margin-left: auto;
+    padding: 0%;
+    background-color: rgb(163, 220, 220);
+    text-align: center;
+    border-radius: 10px;
+}
+.CretMain{
+    margin-top: 20px;
+    margin-right: 100px;
+    text-align: center;
+
+}
+.cartdiv:hover{
+    background-color: rgb(11, 10, 10);
+    transform: translate(10px);
+    color: azure;
+    border-radius: 10px;
+}
