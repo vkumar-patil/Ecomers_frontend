@@ -1,13 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { HiShoppingCart } from "react-icons/hi";
-//import Cart from "../Cart";
-function Nav({ cart, serchproduct, setSerchproduct }) {
-  const itemCount = cart ? cart.length : 0; // Safe check
+import { useSelector } from "react-redux";
+import logo from "../ascets/logo.jpg";
+function Nav({ serchproduct, setSerchproduct }) {
+  const cart = useSelector((state) => state.cart);
+
+  const itemCount = cart ? cart.items.length : 0; // Safe check
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <span className="navbar-brand">FSTORE</span>
+        <span className="navbar-brand">
+          <img
+            src={logo}
+            style={{ height: "40px", borderRadius: "10px" }}
+          ></img>
+        </span>
         <button
           className="navbar-toggler"
           type="button"
@@ -27,12 +35,6 @@ function Nav({ cart, serchproduct, setSerchproduct }) {
                 {" "}
                 Home <span className="sr-only">(current)</span>
               </Link>
-            </li>
-
-            <li className="nav-item">
-              <a className="nav-link disabled" href="/">
-                Disabled
-              </a>
             </li>
           </ul>
           <form className="form-inline my-2 my-lg-0">

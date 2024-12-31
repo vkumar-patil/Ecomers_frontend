@@ -2,35 +2,33 @@ import "./App.css";
 import Login from "./Componant/LogIn ";
 import Register from "./Componant/Register";
 import { Route, Routes } from "react-router-dom";
-import Productdetail from "./Componant/Productdetail";
+import UserHomepage from "./Componant/UserHomepage";
 import Cart from "./Cart";
-import FechProduct from "./Componant/FechProduct";
+import ProductDetails from "./Componant/ProductDetails";
 //import SerchItem from "./Componant/SerchItem";
-import Nav from "./Componant/Nav";
 import { useState } from "react";
+import AdminHomepage from "./Componant/AdminHomepage";
+import Adminfom from "./Componant/Adminfom"
 function App() {
   const [cart, setCart] = useState([]);
   const [serchproduct, setSerchproduct] = useState("");
- // const cart = useSelector((state) => console.log(state.carts));
+  // const cart = useSelector((state) => console.log(state.carts));
   return (
     <>
-      <Nav
-        serchproduct={serchproduct}
-        setSerchproduct={setSerchproduct}
-        cart={cart}
-      />
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/Cart" element={<Cart />}></Route>
+        <Route path="/AdminHomepage" element={<AdminHomepage />}></Route>
+        <Route path="/Adminfom" element={<Adminfom />}></Route>
         <Route
           path="/Product/:id"
-          element={<FechProduct cart={cart} setCart={setCart} />}
+          element={<ProductDetails cart={cart} setCart={setCart} />}
         ></Route>
         <Route
           path="/"
           element={
-            <Productdetail
+            <UserHomepage
               serchproduct={serchproduct}
               cart={cart}
               setCart={setCart}
@@ -38,7 +36,7 @@ function App() {
           }
         ></Route>
 
-        <Route path="/Productdetail" element={<Productdetail />}></Route>
+        <Route path="/UserHomepage" element={<UserHomepage />}></Route>
       </Routes>
     </>
   );

@@ -1,87 +1,101 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { FaArrowRight } from "react-icons/fa";
 
 function Registerpage() {
-  const [Input, setInput] = useState({ name: "", Email: "", Password: "" });
+  const [username, setUsername] = useState("");
+  const [contact, setContact] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const Navigate = useNavigate();
-  // const [Password, setPassword] = useState("");
-  // const [Number, setNumber] = useState("");
-  // const [Name, setName] = useState("");
-  // useEffect(() => {
-  //   // Serialize the email value and store it in localStorage
-  //   localStorage.setItem("userEmail", JSON.stringify(Email));
-  // }, [Email]);
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem("user", JSON.stringify(Input));
-    Navigate("/login");
+    const response = await axios.post(
+      "http://localhost:8001/api/user/Register",
+      { username, contact, email, password }
+    );
+    if (response.data) {
+      alert("Registration successful");
+      console.log(username, contact, email, password);
+      Navigate("/login");
+    }
   };
-  // Process your form data (e.g., submit to server, etc.)
-  console.log("Form submitted!");
-  // Clear the input fields after submission
 
   return (
-    <div>
-      <form className="Rform" onSubmit={handleSubmit}>
-        <h2 className="heading">Register</h2>
-        <h4 className="lable">Name</h4>
+    <div className="register-container">
+      <form className="register-form" onSubmit={handleSubmit}>
+        <h2 className="register-heading">Register</h2>
+
+        <label htmlFor="name" className="register-label">
+          Name
+        </label>
         <input
           type="text"
-          placeholder="Name"
-          id="Name"
+          id="name"
           name="name"
-          className="Rinput"
-          value={Input.name}
-          onChange={(e) =>
-            setInput({ ...Input, [e.target.name]: e.target.value })
-          }
-        ></input>
+          className="register-input"
+          placeholder="Enter your name"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
 
-        <h4 className="lable">Number</h4>
+        <label htmlFor="number" className="register-label">
+          Number
+        </label>
         <input
           type="number"
-          placeholder="Number"
-          id="Number"
+          id="number"
           name="Number"
-          className="Rinput"
-          value={Input.Number}
-          onChange={(e) =>
-            setInput({ ...Input, [e.target.name]: e.target.value })
-          }
-        ></input>
-        <h4 className="lable">Email</h4>
+          className="register-input"
+          placeholder="Enter your number"
+          value={contact}
+          onChange={(e) => setContact(e.target.value)}
+          required
+        />
+
+        <label htmlFor="email" className="register-label">
+          Email
+        </label>
         <input
           type="email"
-          placeholder="email"
           id="email"
           name="Email"
-          value={Input.Email}
-          className="Rinput"
-          onChange={(e) =>
-            setInput({ ...Input, [e.target.name]: e.target.value })
-          }
-        ></input>
+          className="register-input"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-        <br />
-        <h4 className="lable">Password</h4>
+        <label htmlFor="password" className="register-label">
+          Password
+        </label>
         <input
           type="password"
-          placeholder="passward"
-          id="passward"
+          id="password"
           name="Password"
-          className="Rinput"
-          value={Input.Password}
-          onChange={(e) =>
-            setInput({ ...Input, [e.target.name]: e.target.value })
-          }
-        ></input>
-        <br></br>
-        <button type="submit" id="submit">
-          submit
+          className="register-input"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+        <button type="submit" className="register-button">
+          Submit
         </button>
+        <p style={{ color: "orange" }}>
+          if you alredy Registerd ? <FaArrowRight />
+          <Link to={"/login"}>log in</Link>
+        </p>
       </form>
     </div>
   );
 }
+
 export default Registerpage;

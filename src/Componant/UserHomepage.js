@@ -4,68 +4,62 @@ import "./Product.css";
 import { addToCart } from "../useReducer/Slices/cart";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-
 import "react-toastify/dist/ReactToastify.css";
-// cart, setCart,send from prop
-
+import Navbar from "./Nav";
+import axios from "axios";
 function Product({ serchproduct }) {
-  const cart = useSelector((state) => console.log(state.carts));
-
+  const cart = useSelector((state) => state.cart);
+  console.log(cart);
   const dispatch = useDispatch();
-  // const addToCart = (id, price, title, description, image) => {
-  //   const obj = { id, price, title, description, image };
-  //   if (cart.find((ele) => ele.id === id)) {
-  //     alert(`${title} Alredy aded in cart`);
-  //   } else {
-  //     setCart([...cart, obj]);
-  //     console.log(cart);
-  //     window.confirm("Product Add To Cart");
-  //   }
-  // };
+
   const [data, setData] = useState([]);
-  const filteredProducts = data.filter((product) => {
-    //console.log(product.title);
-    return (
-      product.title &&
-      String(product.title).toLowerCase().includes(serchproduct.toLowerCase())
-    );
-  });
+  // const filteredProducts = data.filter((product) => {
+  //   if (product && product.name && typeof product.name === "string") {
+  //     return product.name.toLowerCase().includes(serchproduct.toLowerCase());
+  //   }
+  //   return false; // Return false if the product name is not valid
+  // });
+
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products?limit=20`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setData(data);
-        //console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    const fechdata = async () => {
+      const response = await axios.get(
+        `http://localhost:8001/api/Admin/getProduct`
+      );
+      if (response.data) {
+        setData(response.data.data);
+        console.log(response.data);
+      }
+    };
+    fechdata();
   }, []);
 
   return (
     <>
+      <Navbar />
       <div className="container">
         <div className="row">
           {data.map((item) => {
-            const { id, image, title, price } = item;
-
+            const img = item.Image
+              ? item.Image.split(",").map(
+                  (filenam) => `http://localhost:8001/uploads/${filenam}`
+                )
+              : [];
             return (
               <>
-                <div className="col-md-6 col-lg-3 text-center" key={id}>
-                  <Link to={`/Product/${id}`}>
-                    <img className="card-img-top" src={image} alt="Card  cap" />
+                <div className="col-md-6 col-lg-3 text-center" key={item._id}>
+                  <Link to={`/Product/${item._id}`}>
+                    <img
+                      className="card-img-top"
+                      src={img[1]}
+                      alt="Card  cap"
+                    />
                   </Link>
                   <div className="card-body">
-                    <h5 className="card-title">{title}</h5>
+                    <h5 className="card-title">{item.title}</h5>
                     <p>
                       <span className="price">
                         <i className="fa-solid fa-indian-rupee-sign"></i>
-                        {price}
+                        {item.price}
                       </span>
                       <span className="rating">
                         <i className="fa-solid fa-star"></i>
@@ -80,7 +74,6 @@ function Product({ serchproduct }) {
                       >
                         Add Cart
                       </button>
-
                       <button className="btn btn-success">Buy</button>
                     </p>
                   </div>
