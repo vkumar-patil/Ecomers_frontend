@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Product.css";
 import { addToCart } from "../useReducer/Slices/cart";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+//import { useDispatch } from "react-redux";
+//import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Nav";
 import axios from "axios";
 function Product({ serchproduct }) {
-  const cart = useSelector((state) => state.cart);
-  console.log(cart);
-  const dispatch = useDispatch();
+  //const cart = useSelector((state) => state.cart);
+  //const dispatch = useDispatch();
 
   const [data, setData] = useState([]);
   // const filteredProducts = data.filter((product) => {
@@ -33,6 +32,26 @@ function Product({ serchproduct }) {
     fechdata();
   }, []);
 
+  const handleAddToCart = async (item) => {
+    const productID = item._id;
+    console.log(productID);
+    const userID = localStorage.getItem("userid");
+    console.log(userID);
+    const token = localStorage.getItem("token");
+    console.log(token);
+    const quantity = 1;
+    if (!userID || !token) {
+      alert("please login to product add in cart");
+    }
+    const respons = await axios.post(
+      "http://localhost:8001/api/Admin/AddToCart",
+      { userID, productID, quantity },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (respons.data)
+      //dispatch(addToCart(item));
+      console.log(respons.data);
+  };
   return (
     <>
       <Navbar />
@@ -68,9 +87,7 @@ function Product({ serchproduct }) {
                     <p>
                       <button
                         className="btn btn-warning"
-                        onClick={() => {
-                          dispatch(addToCart(item));
-                        }}
+                        onClick={() => handleAddToCart(item)}
                       >
                         Add Cart
                       </button>

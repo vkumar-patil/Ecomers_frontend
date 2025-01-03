@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 import axios from "axios";
 import { FaArrowRight } from "react-icons/fa";
+import {jwtDecode} from "jwt-decode";
 
 function LogIn() {
   const [email, setEmail] = useState("");
@@ -29,6 +30,10 @@ function LogIn() {
       const { token, user } = response.data;
       toast.success("Login successful", { autoClose: 1000 });
       localStorage.setItem("token", token);
+      const decodedToken = jwtDecode(response.data.token);
+      const userID = decodedToken.userid; // Extract `userid`
+      localStorage.setItem("userid", userID); // Save in localStorage
+      console.log("User ID:", userID);
       if (user && user.Admin === false) {
         localStorage.setItem("LoggedIn", true);
         Navigate("/UserHomepage");
