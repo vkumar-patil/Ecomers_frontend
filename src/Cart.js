@@ -25,6 +25,7 @@ const Cart = () => {
 
       if (response.data && response.data.cart) {
         // If the response contains cart data, dispatch each item to Redux
+        console.log(response);
         response.data.cart.forEach((item) => {
           dispatch(addToCart(item));
         });
