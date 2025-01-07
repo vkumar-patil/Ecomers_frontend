@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Product.css";
-import { addToCart } from "../useReducer/Slices/cart";
+//import { addToCart } from "../useReducer/Slices/cart";
 //import { useDispatch } from "react-redux";
 //import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,7 +26,6 @@ function Product({ serchproduct }) {
       );
       if (response.data) {
         setData(response.data.data);
-        console.log(response.data);
       }
     };
     fechdata();
@@ -44,7 +43,7 @@ function Product({ serchproduct }) {
       alert("please login to product add in cart");
     }
     const respons = await axios.post(
-      "http://localhost:8001/api/Admin/AddToCart",
+      "http://localhost:8001/api/user/add-to-cart",
       { userID, productID, quantity },
       { headers: { Authorization: `Bearer ${token}` } }
     );
