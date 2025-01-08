@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Product.css";
-//import { addToCart } from "../useReducer/Slices/cart";
-//import { useDispatch } from "react-redux";
-//import { useSelector } from "react-redux";
+
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Nav";
 import axios from "axios";
 function Product({ serchproduct }) {
-  //const cart = useSelector((state) => state.cart);
-  //const dispatch = useDispatch();
-
+  
   const [data, setData] = useState([]);
-  // const filteredProducts = data.filter((product) => {
-  //   if (product && product.name && typeof product.name === "string") {
-  //     return product.name.toLowerCase().includes(serchproduct.toLowerCase());
-  //   }
-  //   return false; // Return false if the product name is not valid
-  // });
-
+  
   useEffect(() => {
     const fechdata = async () => {
       const response = await axios.get(

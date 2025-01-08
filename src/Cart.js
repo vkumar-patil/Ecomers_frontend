@@ -1,64 +1,98 @@
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-//import { removeFromCart, clearCart, addToCart } from "./useReducer/Slices/cart";
 import "./Cart.css";
-//import axios from "axios";
-import { useEffect } from "react";
-import { fechdata } from "./Componant/redux/cartAction";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 const Cart = () => {
-  //const [cart, setCart] = useState([]);
-  const { product, isLoding, error } = useSelector((state) => state);
-  console.log(product);
-  const cart = product;
-  console.log(cart);
-  const dispatch = useDispatch();
+  const [cart, setCart] = useState([]);
+
+  const fetchCart = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.warn("User is not logged in.");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        "http://localhost:8001/api/user/get-cart",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      const cartData = response.data?.data;
+      setCart(cartData?.items || []);
+    } catch (error) {
+      if (error.response?.status === 401) {
+        console.error("Unauthorized: Please log in again.");
+        localStorage.removeItem("token");
+      } else {
+        console.error(
+          "Error fetching cart:",
+          error.response?.data || error.message
+        );
+      }
+    }
+  };
+
   useEffect(() => {
-    dispatch(fechdata());
-  }, [dispatch]);
+    fetchCart();
+  }, []);
 
-  // useEffect(() => {
-  //   const fetchCart = async () => {
-  //     const token = localStorage.getItem("token");
+  const handleQuantityCheng = async (productId, newQuantity) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        `http://localhost:8001/api/user/update-cart/${productId}`,
+        { productId, quantity: newQuantity },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      fetchCart();
+    } catch (error) {
+      console.error(
+        "Error updating quantity:",
+        error.response?.data || error.message
+      );
+    }
+  };
 
-  //     if (!token) {
-  //       console.warn("User is not logged in.");
-  //       return; // Exit if no token
-  //     }
+  const clearCart = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete("http://localhost:8001/api/user/clear-cart", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCart([]);
+    } catch (error) {
+      console.error(
+        "Error clearing cart:",
+        error.response?.data || error.message
+      );
+    }
+  };
 
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:8001/api/user/get-cart",
-  //         {
-  //           headers: { Authorization: `Bearer ${token}` },
-  //         }
-  //       );
+  const deleteCartItem = async (productId) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(
+        `http://localhost:8001/api/user/delete-cart-item/${productId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      fetchCart();
+    } catch (error) {
+      console.error(
+        "Error deleting item:",
+        error.response?.data || error.message
+      );
+    }
+  };
 
-  //       const cartData = response.data?.data; // Adjust based on actual API response
-  //       if (cartData?.items) {
-  //         console.log("Cart data:", cartData);
-  //         setCart(cartData.items);
-  //         // dispatch(addToCart(cartData.items));
-  //         //cartData.items.forEach((item) => dispatch(addToCart(item)));
-  //       } else {
-  //         console.warn("No items found in the cart.");
-  //       }
-  //     } catch (error) {
-  //       if (error.response?.status === 401) {
-  //         console.error("Unauthorized: Please log in again.");
-  //         localStorage.removeItem("token");
-  //         localStorage.removeItem("userid");
-  //         // Optionally redirect to login page
-  //       } else {
-  //         console.error(
-  //           "Error fetching cart:",
-  //           error.response?.data || error.message
-  //         );
-  //       }
-  //     }
-  //   };
-
-  //   fetchCart();
-  // }, [setCart]); // Empty dependency array, runs once on mount
+  const calculateTotalPrice = () => {
+    return cart.reduce(
+      (total, item) => total + item.productID.price * item.quantity,
+      0
+    );
+  };
 
   return (
     <div className="container CretMain">
@@ -74,17 +108,9 @@ const Cart = () => {
           ) : (
             <div className="col-md-4 cartFinel">
               <p>Product Count: {cart.length}</p>
-              <p>
-                Total Price: ₹
-                {product.totalPrice && !isNaN(product.totalPrice)
-                  ? product.totalPrice.toFixed(2)
-                  : "0.00"}
-              </p>
+              <p>Total Price: ₹{calculateTotalPrice()}</p>
               <button className="btn btn-warning">Check Out</button>
-              <button
-                className="btn btn-info"
-                //onClick={() => dispatch(clearCart())}
-              >
+              <button className="btn btn-info" onClick={clearCart}>
                 Clear Cart
               </button>
             </div>
@@ -92,20 +118,17 @@ const Cart = () => {
         </div>
 
         <div className="col-md-12">
-          {cart.map((item) => {
-            console.log(item.productID.Image);
-            // Split the Image string and take the first image URL
-            const firstImage = item.productID.Image
-              ? `http://localhost:8001/uploads/${item.productID.Image[1] //) //  "," // split(
-                  .trim()}` // Ensure proper URL format
-              : null;
-            console.log(firstImage);
+          {cart.map((item, index) => {
+            const firstImage =
+              Array.isArray(item.productID.Image) && item.productID.Image[0]
+                ? `http://localhost:8001/uploads/${item.productID.Image[0].trim()}`
+                : null;
 
             return (
               <div
                 className="card mb-12"
                 style={{ width: "600px" }}
-                key={item.productID._id}
+                key={`${item.productID._id}-${index}`}
               >
                 <div className="row no-gutters">
                   <div className="col-md-4">
@@ -126,10 +149,31 @@ const Cart = () => {
                       <p className="card-text">
                         <span className="price">₹{item.productID.price}</span>
                       </p>
+                      <button
+                        onClick={() =>
+                          handleQuantityCheng(
+                            item.productID._id,
+                            Math.max(1, item.quantity - 1)
+                          )
+                        }
+                      >
+                        -
+                      </button>
+                      {item.quantity}
+                      <button
+                        onClick={() =>
+                          handleQuantityCheng(
+                            item.productID._id,
+                            item.quantity + 1
+                          )
+                        }
+                      >
+                        +
+                      </button>
                       <button className="btn btn-success">Buy</button>
                       <button
                         className="btn btn-danger"
-                        // onClick={() => dispatch(removeFromCart(item._id))}
+                        onClick={() => deleteCartItem(item.productID._id)}
                       >
                         Delete
                       </button>

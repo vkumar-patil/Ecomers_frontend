@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { HiShoppingCart } from "react-icons/hi";
-import { useSelector } from "react-redux";
 import logo from "../ascets/logo.jpg";
 function Nav({ serchproduct, setSerchproduct }) {
-  const cart = useSelector((state) => state.cart);
 
-  const itemCount = cart ? cart.items.length : 0; // Safe check
+  //const itemCount = cart ? cart.items.length : 0; // Safe check
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -48,7 +46,7 @@ function Nav({ serchproduct, setSerchproduct }) {
             />
             <span>
               <span className="badge badge-light position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {itemCount}
+                {/* {itemCount} */}
               </span>
               <span className="sr-only">unread messages</span>
               <Link
