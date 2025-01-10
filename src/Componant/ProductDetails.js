@@ -5,14 +5,14 @@ import axios from "axios";
 import "./ProductDetails.css";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { FaArrowCircleLeft } from "react-icons/fa";
-import { addToCart } from "../useReducer/Slices/cart";
-import { useDispatch } from "react-redux";
+//import { addToCart } from "../useReducer/Slices/cart";
+//import { useDispatch } from "react-redux";
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [error, setError] = useState(null);
   const [imageIndex, setImageIndex] = useState(0); // State to store the current image index
-  const dispach = useDispatch();
+  //const dispach = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -109,7 +109,7 @@ const ProductDetail = () => {
               <i className="fa-solid fa-indian-rupee-sign"></i>
               {product.price}
             </span>
-            <button onClick={() => dispach(addToCart(product))}>
+            <button >
               Add To Cart
             </button>
           </div>

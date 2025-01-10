@@ -6,9 +6,11 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 import axios from "axios";
 import { FaArrowRight } from "react-icons/fa";
-import {jwtDecode} from "jwt-decode";
-
+import { jwtDecode } from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { login } from "../useReducer/Slices/User";
 function LogIn() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,21 +26,29 @@ function LogIn() {
           password,
         }
       );
+
       if (!response.data) {
         console.error("data not found");
       }
       const { token, user } = response.data;
       toast.success("Login successful", { autoClose: 1000 });
+
       localStorage.setItem("token", token);
       const decodedToken = jwtDecode(response.data.token);
-      const userID = decodedToken.userid; // Extract `userid`
+      const userID = decodedToken?.userid; // Extract `userid`
       localStorage.setItem("userid", userID); // Save in localStorage
       console.log("User ID:", userID);
-      if (user && user.Admin === false) {
+      if (user) {
+        // Dispatch the Adduser action to store the username
+        dispatch(login(user));
         localStorage.setItem("LoggedIn", true);
-        Navigate("/UserHomepage");
-      } else {
-        Navigate("/AdminHomepage");
+
+        if (user && user.Admin === false) {
+          localStorage.setItem("LoggedIn", true);
+          Navigate("/UserHomepage");
+        } else {
+          Navigate("/AdminHomepage");
+        }
       }
     } catch (error) {
       toast.error("Login failed. Please check your credentials.", {
