@@ -5,13 +5,16 @@ import axios from "axios";
 import "./ProductDetails.css";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { FaArrowCircleLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 //import { addToCart } from "../useReducer/Slices/cart";
 //import { useDispatch } from "react-redux";
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [error, setError] = useState(null);
-  const [imageIndex, setImageIndex] = useState(0); // State to store the current image index
+  const [imageIndex, setImageIndex] = useState(0);
+  const navigate = useNavigate();
+  // State to store the current image index
   //const dispach = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +50,29 @@ const ProductDetail = () => {
       ? product.Image[imageIndex]
       : null;
 
+  const handleClick = async (product) => {
+    console.log(product);
+    const productID = product._id;
+    const token = localStorage.getItem("token");
+    const userID = localStorage.getItem("userid");
+    const quantity = 1;
+    if (!userID || !token) {
+      alert("Please login to add products to your cart.");
+      navigate("/login");
+    }
+    const respons = await axios.post(
+      "http://localhost:8001/api/user/add-to-cart",
+      { quantity, userID, productID },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    if (respons.data.message === "Product is already in the cart") {
+      alert("Product is already in the cart.");
+    } else {
+      alert("Product added to the cart successfully.");
+    }
+  };
   return (
     <>
       <Navbar />
@@ -109,9 +135,13 @@ const ProductDetail = () => {
               <i className="fa-solid fa-indian-rupee-sign"></i>
               {product.price}
             </span>
-            <button >
+            <button
+              className="btn btn-warning"
+              onClick={() => handleClick(product)}
+            >
               Add To Cart
             </button>
+            <button className="btn btn-success">Buy</button>
           </div>
         </div>
       )}

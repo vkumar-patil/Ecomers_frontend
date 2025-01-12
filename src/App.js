@@ -5,38 +5,38 @@ import { Route, Routes } from "react-router-dom";
 import UserHomepage from "./Componant/UserHomepage";
 import Cart from "./Cart";
 import ProductDetails from "./Componant/ProductDetails";
-//import SerchItem from "./Componant/SerchItem";
-import { useState } from "react";
+//import { useState } from "react";
 import AdminHomepage from "./Componant/AdminHomepage";
-import Adminfom from "./Componant/Adminfom"
+import Adminfom from "./Componant/Adminfom";
+import Nav from "./Componant/Nav";
+//import ProtectedRoute from "./Componant/ProtectRout";
 function App() {
-  const [cart, setCart] = useState([]);
-  const [serchproduct, setSerchproduct] = useState("");
-  // const cart = useSelector((state) => console.log(state.carts));
   return (
     <>
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/Cart" element={<Cart />}></Route>
-        <Route path="/AdminHomepage" element={<AdminHomepage />}></Route>
-        <Route path="/Adminfom" element={<Adminfom />}></Route>
         <Route
-          path="/Product/:id"
-          element={<ProductDetails cart={cart} setCart={setCart} />}
+          path="/AdminHomepage"
+          element={
+            //<ProtectedRoute allowedRoles={[true]}>
+            <AdminHomepage />
+            // </ProtectedRoute>
+          }
         ></Route>
+        <Route path="/Adminfom" element={<Adminfom />}></Route>
+        <Route path="/Product/:id" element={<ProductDetails />}></Route>
         <Route
           path="/"
           element={
-            <UserHomepage
-              serchproduct={serchproduct}
-              cart={cart}
-              setCart={setCart}
-            />
+            //<ProtectedRoute allowedRoles={[false]}>
+            <UserHomepage />
+            //</ProtectedRoute>
           }
         ></Route>
-
         <Route path="/UserHomepage" element={<UserHomepage />}></Route>
+        <Route path="/Nav" element={<Nav />}></Route>
       </Routes>
     </>
   );

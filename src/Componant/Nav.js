@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { HiShoppingCart } from "react-icons/hi";
 import logo from "../ascets/logo.jpg";
 
-function Nav({ serchproduct, setSerchproduct }) {
+function Nav() {
   const [user, setUser] = useState(null);
+
   const navigate = useNavigate();
   useEffect(() => {
     // Check if user data is saved in localStorage
@@ -58,14 +59,13 @@ function Nav({ serchproduct, setSerchproduct }) {
           </li>
         </ul>
         <form className="form-inline my-2 my-lg-0">
-          <input
+          {/* <input
             className="form-control mr-sm-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
-            value={serchproduct}
-            onChange={(e) => setSerchproduct(e.target.value)}
-          />
+            // onChange={handleSearch}
+          /> */}
           <span>
             <Link
               to="/Cart"
