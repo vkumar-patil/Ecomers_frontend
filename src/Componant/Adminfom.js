@@ -25,7 +25,9 @@ function Admin() {
     Image.forEach((Image) => {
       formData.append("Image", Image);
     });
-
+    const userID = localStorage.getItem("userid");
+    const token = localStorage.getItem("token");
+    console.log(token);
     try {
       const response = await axios.post(
         "http://localhost:8001/api/Admin/AddProduct",
@@ -33,7 +35,7 @@ function Admin() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer token", // Replace 'token' with your actual token
+            Authorization: `Bearer ${token}`, // Replace 'token' with your actual token
           },
         }
       );

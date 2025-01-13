@@ -7,11 +7,11 @@ import "./Login.css";
 import axios from "axios";
 import { FaArrowRight } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
-//import { useDispatch } from "react-redux";
-//import { login } from "../useReducer/Slices/User";
+import { useDispatch } from "react-redux";
+import { login } from "../useReducer/Slices/User";
 
 function LogIn() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,20 +41,17 @@ function LogIn() {
       console.log("User ID:", userID);
       if (user) {
         // Dispatch the Adduser action to store the username
-        //dispatch(login(user));
+        dispatch(login(user));
         localStorage.setItem("LoggedIn", true);
 
-        if (
-          user
-          // &&
-          // user.Admin === false
-        ) {
+        if (user && user.Admin === false) {
           localStorage.setItem("LoggedIn", true);
+          localStorage.setItem("user", JSON.stringify(user));
+
+          Navigate("/UserHomepage");
+        } else {
           Navigate("/UserHomepage");
         }
-        //  else {
-        //   Navigate("/AdminHomepage");
-        // }
       }
     } catch (error) {
       toast.error("Login failed. Please check your credentials.", {

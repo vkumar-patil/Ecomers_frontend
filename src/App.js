@@ -9,6 +9,7 @@ import ProductDetails from "./Componant/ProductDetails";
 import AdminHomepage from "./Componant/AdminHomepage";
 import Adminfom from "./Componant/Adminfom";
 import Nav from "./Componant/Nav";
+import EditProduct from "./Componant/EditProduct";
 //import ProtectedRoute from "./Componant/ProtectRout";
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         ></Route>
         <Route path="/UserHomepage" element={<UserHomepage />}></Route>
         <Route path="/Nav" element={<Nav />}></Route>
+        <Route path="/EditProduct" element={<EditProduct />}></Route>
       </Routes>
     </>
   );
