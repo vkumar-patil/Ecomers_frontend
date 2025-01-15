@@ -83,7 +83,7 @@ function AdminHomepage() {
                             </span>
                           </p>
                           <p>
-                            <Link to={"/EditProduct"}>
+                            <Link to={`/EditProduct/${item._id}`}>
                               <button className="btn btn-warning">
                                 Edit Product
                               </button>

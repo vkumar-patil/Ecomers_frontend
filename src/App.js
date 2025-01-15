@@ -38,7 +38,7 @@ function App() {
         ></Route>
         <Route path="/UserHomepage" element={<UserHomepage />}></Route>
         <Route path="/Nav" element={<Nav />}></Route>
-        <Route path="/EditProduct" element={<EditProduct />}></Route>
+        <Route path="/EditProduct/:id" element={<EditProduct />}></Route>
       </Routes>
     </>
   );

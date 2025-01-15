@@ -20,14 +20,16 @@ function EditProduct() {
           `http://localhost:8001/api/Admin/${id}`
         );
         const product = response.data;
+        console.log(product);
         setFormData({
-          title: product.title,
-          price: product.price,
-          description: product.description,
-          Image: null, // Don't prefill the file input
+          title: product.title || "",
+          price: product.price || "",
+          description: product.description || "",
+          Image: null, // Reset file input
         });
       } catch (error) {
         console.error("Error fetching product:", error);
+        alert("Failed to fetch product details.");
       }
     };
     fetchProduct();
@@ -65,8 +67,8 @@ function EditProduct() {
           },
         }
       );
-      alert(response.data.message);
-      navigate("/AdminHomepage"); // Redirect to homepage
+      alert(response.data.message || "Product updated successfully.");
+      navigate("/AdminHomepage"); // Redirect to Admin homepage
     } catch (error) {
       console.error("Error updating product:", error);
       alert("Failed to update product. Please try again.");
@@ -112,6 +114,7 @@ function EditProduct() {
             type="file"
             className="form-control"
             name="Image"
+            multiple
             onChange={handleFileChange}
           />
         </div>
