@@ -6,6 +6,8 @@ import "./ProductDetails.css";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { CiStar } from "react-icons/ci";
+
 //import { addToCart } from "../useReducer/Slices/cart";
 //import { useDispatch } from "react-redux";
 const ProductDetail = () => {
@@ -128,7 +130,7 @@ const ProductDetail = () => {
           {/* Image Navigation Buttons */}
 
           {/* Render Product Details */}
-          <div className=" col-md-4">
+          <div className=" col-md-6">
             <h4>{product.title}</h4>
             <p>{product.description}</p>
             <span>
@@ -142,6 +144,37 @@ const ProductDetail = () => {
               Add To Cart
             </button>
             <button className="btn btn-success">Buy</button>
+            <div style={{ backgroundColor: "yellow" }}>
+              <h5 style={{ borderRadius: "10px", backgroundColor: "blue" }}>
+                write A Review
+              </h5>
+              <form className="rating-container">
+                <lable>
+                  <input type="checkbox" name="rate" value={1} />
+
+                  <span className="star" style={{ fontSize: "70px" }}>
+                    <CiStar />
+                  </span>
+                </lable>
+                <lable>
+                  <input type="checkbox" name="rate" value={2} />
+                </lable>
+                <lable>
+                  <input type="checkbox" name="rate" value={3} />
+                </lable>
+                <lable>
+                  <input type="checkbox" name="rate" value={4} />
+                </lable>
+                <lable>
+                  <input type="checkbox" name="rate" value={5} />
+                </lable>
+              </form>
+            </div>
+            <div style={{ backgroundColor: "grey" }}>
+              <h5 style={{ borderRadius: "10px", backgroundColor: "red" }}>
+                Ratings & Reviews
+              </h5>
+            </div>
           </div>
         </div>
       )}
