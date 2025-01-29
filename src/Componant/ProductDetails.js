@@ -60,7 +60,8 @@ const ProductDetail = () => {
     const quantity = 1;
     if (!userID || !token) {
       alert("Please login to add products to your cart.");
-      navigate("/login");
+      navigate("/login"); // Navigate to login page
+      return;
     }
     const respons = await axios.post(
       "http://localhost:8001/api/user/add-to-cart",
@@ -140,11 +141,12 @@ const ProductDetail = () => {
             <button
               className="btn btn-warning"
               onClick={() => handleClick(product)}
+              style={{ margin: "10px" }}
             >
               Add To Cart
             </button>
             <button className="btn btn-success">Buy</button>
-            <div style={{ backgroundColor: "yellow" }}>
+            {/* <div style={{ backgroundColor: "yellow" }}>
               <h5 style={{ borderRadius: "10px", backgroundColor: "blue" }}>
                 write A Review
               </h5>
@@ -169,12 +171,12 @@ const ProductDetail = () => {
                   <input type="checkbox" name="rate" value={5} />
                 </lable>
               </form>
-            </div>
-            <div style={{ backgroundColor: "grey" }}>
+            </div> */}
+            {/* <div style={{ backgroundColor: "grey" }}>
               <h5 style={{ borderRadius: "10px", backgroundColor: "red" }}>
                 Ratings & Reviews
               </h5>
-            </div>
+            </div> */}
           </div>
         </div>
       )}

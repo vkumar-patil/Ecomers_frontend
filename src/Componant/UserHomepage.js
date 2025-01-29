@@ -232,6 +232,7 @@ function Product() {
                     <button
                       className="btn btn-warning"
                       onClick={() => handleAddToCart(item)}
+                      style={{ margin: "5px" }}
                     >
                       Add to Cart
                     </button>
