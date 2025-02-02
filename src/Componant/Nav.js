@@ -26,7 +26,8 @@ function Nav() {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     setUser(null);
-    window.location.reload();
+    // window.location.reload();
+    navigate("/login");
   };
 
   return (

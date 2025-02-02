@@ -10,7 +10,7 @@ import AdminHomepage from "./Componant/AdminHomepage";
 import Adminfom from "./Componant/Adminfom";
 import Nav from "./Componant/Nav";
 import EditProduct from "./Componant/EditProduct";
-//import ProtectedRoute from "./Componant/ProtectRout";
+import ProtectedRoute from "./Componant/ProtectRout";
 function App() {
   return (
     <>
@@ -21,9 +21,9 @@ function App() {
         <Route
           path="/AdminHomepage"
           element={
-            //<ProtectedRoute allowedRoles={[true]}>
-            <AdminHomepage />
-            // </ProtectedRoute>
+            <ProtectedRoute allowedRoles={[true]}>
+              <AdminHomepage />
+            </ProtectedRoute>
           }
         ></Route>
         <Route path="/Adminfom" element={<Adminfom />}></Route>
