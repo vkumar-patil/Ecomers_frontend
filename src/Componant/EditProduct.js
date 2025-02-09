@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import Nav from "./Nav";
 function EditProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -76,6 +76,8 @@ function EditProduct() {
   };
 
   return (
+    <>
+    <Nav/>
     <div className="container">
       <h3>Edit Product</h3>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -123,6 +125,7 @@ function EditProduct() {
         </button>
       </form>
     </div>
+    </>
   );
 }
 

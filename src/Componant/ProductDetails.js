@@ -6,7 +6,9 @@ import "./ProductDetails.css";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { CiStar } from "react-icons/ci";
+import { FaTag } from "react-icons/fa";
+
+//import { CiStar } from "react-icons/ci";
 
 //import { addToCart } from "../useReducer/Slices/cart";
 //import { useDispatch } from "react-redux";
@@ -74,6 +76,7 @@ const ProductDetail = () => {
       alert("Product is already in the cart.");
     } else {
       alert("Product added to the cart successfully.");
+      navigate("/Cart");
     }
   };
   return (
@@ -83,13 +86,21 @@ const ProductDetail = () => {
       {!error && product && (
         <div className="row">
           {/* Render Image */}
-          <div className=" col-md-6">
+          <div
+            className=" col-md-4 "
+            style={{ display: "flex", justifyContent: "center" }}
+          >
             {imageUrl ? (
               <img
                 className="product-image"
                 src={imageUrl}
-                alt={`Product Image ${imageIndex}`}
-                style={{ height: "80vh", width: "100%", position: "relative" }}
+                alt={`Product  ${imageIndex}`}
+                style={{
+                  height: "70vh",
+
+                  position: "relative",
+                  borderRadius: "20px",
+                }}
               />
             ) : (
               <p>No image available at this index.</p>
@@ -127,19 +138,40 @@ const ProductDetail = () => {
               <FaArrowCircleRight />
             </span>
           </div>
-
-          {/* Image Navigation Buttons */}
-
-          {/* Render Product Details */}
-          <div className=" col-md-6">
+          <div className=" col-md-6 mt-5">
             <h4>{product.title}</h4>
-            <p>{product.description}</p>
-            <span>
+            <p className="mt-4" style={{ fontSize: "1.1rem" }}>
+              {product.description}
+            </p>
+            <span style={{ fontSize: "1.4rem" }}>
               <i className="fa-solid fa-indian-rupee-sign"></i>
               {product.price}
             </span>
+            <p className="mt-3">
+              <span className="mr-2" style={{ color: "greenyellow" }}>
+                <FaTag />
+              </span>
+              <span className="mr-2 " style={{ fontSize: "1.3rem" }}>
+                Bank Offer
+              </span>
+              <span style={{ fontSize: "1.1rem" }}>
+                5%Unlimited Cashback on Flipkart Axis Bank Credit Card
+              </span>
+            </p>
+            <p>
+              <span className="mr-2" style={{ color: "greenyellow" }}>
+                <FaTag />
+              </span>
+              <span className="mr-2" style={{ fontSize: "1.3rem" }}>
+                Bank Offer
+              </span>
+              <span style={{ fontSize: "1.1rem" }}>
+                10% instant discount on SBI Credit Card EMI Transactions, up to
+                ₹1,500
+              </span>
+            </p>
             <button
-              className="btn btn-warning"
+              className="btn btn-warning ml-4 mr-4"
               onClick={() => handleClick(product)}
               style={{ margin: "10px" }}
             >
@@ -178,6 +210,7 @@ const ProductDetail = () => {
               </h5>
             </div> */}
           </div>
+          <div className="row"></div>
         </div>
       )}
     </>

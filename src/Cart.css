@@ -30,3 +30,11 @@ margin-left: auto;
     color: azure;
     border-radius: 10px;
 }
+
+.cards{
+    max-height: 80vh;
+    overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Hide horizontal scroll */
+  padding: 10px;
+  scrollbar-width: none;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { HiShoppingCart } from "react-icons/hi";
+import { MdOutlineShoppingCart } from "react-icons/md";
+
 import logo from "../ascets/logo.jpg";
 
 function Nav() {
@@ -32,13 +33,13 @@ function Nav() {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <span className="navbar-brand">
+      <li className="navbar-brand" style={{ listStyle: "none" }}>
         <img
           src={logo}
           style={{ height: "40px", borderRadius: "10px" }}
           alt="Logo"
         />
-      </span>
+      </li>
       <button
         className="navbar-toggler"
         type="button"
@@ -47,13 +48,11 @@ function Nav() {
         aria-controls="navbarSupportedContent"
         aria-expanded="false"
         aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
+      ></button>
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
+          <li className="nav-item active" style={{ listStyle: "none" }}>
             <Link className="navbar-brand" to={"/"}>
               Home <span className="sr-only">(current)</span>
             </Link>
@@ -67,38 +66,46 @@ function Nav() {
             aria-label="Search"
             // onChange={handleSearch}
           /> */}
-          <span>
+          <li style={{ listStyle: "none", marginRight: "20px" }}>
             <Link
               to="/Cart"
               className="cart"
-              style={{ fontSize: "xxx-large", color: "orange" }}
+              style={{
+                fontSize: "xxx-large",
+              }}
             >
-              <HiShoppingCart />
+              <MdOutlineShoppingCart />
             </Link>
-          </span>
+          </li>
 
           {user ? (
             <>
-              <span
+              <li
+                className="mr-4"
                 style={{
                   color: "green",
                   fontFamily: "sans-serif",
                   fontSize: "30px",
+                  listStyle: "none",
                 }}
               >
                 Hello,{user.username}
-              </span>
+              </li>
               <button className="btn btn-danger" onClick={handleLogout}>
                 Log Out
               </button>
             </>
           ) : (
             <>
-              <button className="btn btn-primary" onClick={handleLogin}>
+              <button
+                className="btn btn-primary "
+                onClick={handleLogin}
+                style={{ marginRight: "20px" }}
+              >
                 Log In
               </button>
 
-              <Link to="/register">
+              <Link to="/register" style={{ marginRight: "10px" }}>
                 <button className="btn btn-success">Register</button>
               </Link>
             </>

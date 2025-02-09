@@ -119,7 +119,7 @@ function Product() {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
+            <li className="nav-item active" style={{ listStyle: "none" }}>
               <Link className="navbar-brand" to={"/"}>
                 Home <span className="sr-only">(current)</span>
               </Link>
@@ -127,57 +127,63 @@ function Product() {
           </ul>
           <form className="form-inline my-2 my-lg-0">
             <input
-              className="form-control mr-sm-2"
+              className="form-control mr-sm-2  "
               type="search"
               placeholder="Search"
               aria-label="Search"
               onChange={handleSearch}
             />
-            <span>
+            <li style={{ listStyle: "none", marginRight: "30px" }}>
               <Link
                 to="/Cart"
-                className="cart"
-                style={{ fontSize: "xxx-large", color: "GrayText" }}
+                className="cart "
+                style={{
+                  fontSize: "xxx-large",
+                  color: "GrayText",
+                }}
               >
                 <MdOutlineShoppingCart />
               </Link>
-            </span>
+            </li>
 
             {user ? (
               <>
                 {user.Admin ? (
                   <>
                     <Link to={"/AdminHomepage"}>
-                      <button className="btn btn-warning">
+                      <button className="btn btn-warning mr-4">
                         Uplode & Edit your Product
                       </button>
                     </Link>
-                    <span
+                    <li
                       style={{
                         color: "green",
                         fontFamily: "sans-serif",
                         fontSize: "30px",
+                        listStyle: "none",
+                        marginRight: "30px",
                       }}
                     >
                       <CgProfile />
                       {user.username}
-                    </span>
+                    </li>
                     <button className="btn btn-danger" onClick={handleLogout}>
                       Log Out
                     </button>
                   </>
                 ) : (
                   <>
-                    <span
+                    <li
                       style={{
                         color: "dark",
                         fontFamily: "sans-serif",
                         fontSize: "30px",
+                        listStyle: "none",
                       }}
                     >
                       <CgProfile />
                       {user.username}
-                    </span>
+                    </li>
                     <button className="btn btn-danger" onClick={handleLogout}>
                       Log Out
                     </button>
@@ -186,7 +192,11 @@ function Product() {
               </>
             ) : (
               <>
-                <button className="btn btn-primary" onClick={handleLogin}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleLogin}
+                  style={{ marginRight: "20px" }}
+                >
                   Log In
                 </button>
 
