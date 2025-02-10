@@ -24,7 +24,7 @@ const ProductDetail = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8001/api/Admin/${id}`
+          `https://ecomers-backend-ed5p.onrender.com/api/Admin/${id}`
         );
         setProduct(response.data);
       } catch (error) {
@@ -66,7 +66,7 @@ const ProductDetail = () => {
       return;
     }
     const respons = await axios.post(
-      "http://localhost:8001/api/user/add-to-cart",
+      "https://ecomers-backend-ed5p.onrender.com/api/user/add-to-cart",
       { quantity, userID, productID },
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -210,7 +210,7 @@ const ProductDetail = () => {
               </h5>
             </div> */}
           </div>
-          <div className="row"></div>
+          {/* <div className="row"></div> */}
         </div>
       )}
     </>

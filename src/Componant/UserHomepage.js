@@ -44,7 +44,7 @@ function Product() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8001/api/Admin/getProduct`
+          `https://ecomers-backend-ed5p.onrender.com/api/Admin/getProduct`
         );
         if (response.data) {
           setData(response.data.data);
@@ -70,7 +70,7 @@ function Product() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8001/api/user/add-to-cart",
+        "https://ecomers-backend-ed5p.onrender.com/api/user/add-to-cart",
         { userID, productID, quantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -218,7 +218,7 @@ function Product() {
           {filteredData.map((item) => {
             const img = item.Image
               ? item.Image.split(",").map(
-                  (filename) => `http://localhost:8001/uploads/${filename}`
+                  (filename) => `https://ecomers-backend-ed5p.onrender.com/uploads/${filename}`
                 )
               : [];
             return (

@@ -31,7 +31,7 @@ function Admin() {
     console.log(token);
     try {
       const response = await axios.post(
-        "http://localhost:8001/api/Admin/AddProduct",
+        "https://ecomers-backend-ed5p.onrender.com/api/Admin/AddProduct",
         formData,
         {
           headers: {

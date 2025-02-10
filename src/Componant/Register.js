@@ -15,7 +15,7 @@ function Registerpage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await axios.post(
-      "http://localhost:8001/api/user/Register",
+      "https://ecomers-backend-ed5p.onrender.com/api/user/Register",
       { username, contact, email, password }
     );
     if (response.data) {

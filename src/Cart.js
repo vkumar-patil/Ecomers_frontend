@@ -18,7 +18,7 @@ const Cart = () => {
 
     try {
       const response = await axios.get(
-        "http://localhost:8001/api/user/get-cart",
+        "https://ecomers-backend-ed5p.onrender.com/api/user/get-cart",
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const cartData = response.data?.data;
@@ -49,7 +49,7 @@ const Cart = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:8001/api/user/update-cart/${productId}`,
+        `https://ecomers-backend-ed5p.onrender.com/api/user/update-cart/${productId}`,
         { quantity: newQuantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -65,9 +65,12 @@ const Cart = () => {
   const clearCart = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete("http://localhost:8001/api/user/Clear", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        "https://ecomers-backend-ed5p.onrender.com/api/user/Clear",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setCart([]);
     } catch (error) {
       console.error(
@@ -82,7 +85,7 @@ const Cart = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.delete(
-        `http://localhost:8001/api/user/delete-cart-item/${productId}`,
+        `https://ecomers-backend-ed5p.onrender.com/api/user/delete-cart-item/${productId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -135,7 +138,7 @@ const Cart = () => {
                   const firstImage =
                     Array.isArray(item.productID.Image) &&
                     item.productID.Image[0]
-                      ? `http://localhost:8001/uploads/${item.productID.Image[0].trim()}`
+                      ? `https://ecomers-backend-ed5p.onrender.com/uploads/${item.productID.Image[0].trim()}`
                       : null;
 
                   return (

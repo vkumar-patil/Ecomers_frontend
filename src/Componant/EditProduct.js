@@ -17,7 +17,7 @@ function EditProduct() {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8001/api/Admin/${id}`
+          `https://ecomers-backend-ed5p.onrender.com/api/Admin/${id}`
         );
         const product = response.data;
         console.log(product);
@@ -58,7 +58,7 @@ function EditProduct() {
 
     try {
       const response = await axios.put(
-        `http://localhost:8001/api/Admin/update-product/${id}`,
+        `https://ecomers-backend-ed5p.onrender.com/api/Admin/update-product/${id}`,
         formDataToSend,
         {
           headers: {

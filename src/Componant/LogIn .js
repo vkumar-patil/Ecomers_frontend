@@ -21,7 +21,7 @@ function LogIn() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8001/api/user/login",
+        "https://ecomers-backend-ed5p.onrender.com/api/user/login",
         {
           email,
           password,

@@ -7,7 +7,7 @@ function AdminHomepage() {
   const [data, setData] = useState([]);
   const fechdata = async () => {
     const response = await axios.get(
-      "http://localhost:8001/api/Admin/getProduct"
+      "https://ecomers-backend-ed5p.onrender.com/api/Admin/getProduct"
     );
     if (response.data) {
       setData(response.data.data);
@@ -22,7 +22,7 @@ function AdminHomepage() {
     try {
       const token = localStorage.getItem("token");
       const deleteItem = await axios.delete(
-        `http://localhost:8001/api/Admin/delete-item/${productID}`,
+        `https://ecomers-backend-ed5p.onrender.com/api/Admin/delete-item/${productID}`,
         {
           headers: { Authorization: `Bearer${token}` },
         }
@@ -50,7 +50,7 @@ function AdminHomepage() {
             {data.map((item) => {
               const img = item.Image
                 ? item.Image.split(",").map(
-                    (filename) => `http://localhost:8001/uploads/${filename}`
+                    (filename) => `https://ecomers-backend-ed5p.onrender.com/uploads/${filename}`
                   )
                 : [];
               return (
