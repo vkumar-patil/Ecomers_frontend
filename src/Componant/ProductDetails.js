@@ -138,7 +138,7 @@ const ProductDetail = () => {
               <FaArrowCircleRight />
             </span>
           </div>
-          <div className=" col-md-6 mt-5">
+          <div className=" col-md-6 mt-5" style={{ padding: "30px" }}>
             <h4>{product.title}</h4>
             <p className="mt-4" style={{ fontSize: "1.1rem" }}>
               {product.description}

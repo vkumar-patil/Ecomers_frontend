@@ -13,6 +13,7 @@ function Product() {
   const [data, setData] = useState([]);
   const [serch, setSerch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -94,7 +95,9 @@ function Product() {
     );
     setFilteredData(filter);
   }, [serch, data]);
-
+  const togaleNav = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -108,16 +111,17 @@ function Product() {
         <button
           className="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
+          onClick={togaleNav}
+          aria-expanded={isOpen ? "true" : "false"}
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}
+          id="navbarNav"
+        >
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active" style={{ listStyle: "none" }}>
               <Link className="navbar-brand" to={"/"}>
@@ -209,7 +213,7 @@ function Product() {
         </div>
       </nav>
       {/* <Navbar /> */}
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           {filteredData.map((item) => {
             const img = item.Image
@@ -224,7 +228,11 @@ function Product() {
                     className="card-img-top"
                     src={img[1]}
                     alt="Product"
-                    style={{ height: "200px", objectFit: "cover" }}
+                    style={{
+                      height: "280px",
+                      objectFit: "cover",
+                      paddingBottom: "20px",
+                    }}
                   />
                 </Link>
                 <div className="card-body">

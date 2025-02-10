@@ -26,7 +26,7 @@ function Admin() {
     Image.forEach((Image) => {
       formData.append("Image", Image);
     });
-    const userID = localStorage.getItem("userid");
+    //const userID = localStorage.getItem("userid");
     const token = localStorage.getItem("token");
     console.log(token);
     try {
